@@ -33,6 +33,8 @@ export class BurgersController extends BaseController {
     try {
       const burgerData = request.body
       const burger = await burgerService.buildBurger(burgerData)
+      response.send(burger) // this is important! or else will keep loading/sending without a proper stop (even if technically works)
+
     } catch (error) {
       console.log('cannot make burger', error);
       throw new Error("No burger can be made with whatever you gave me");
