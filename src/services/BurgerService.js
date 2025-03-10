@@ -1,6 +1,12 @@
 import { dbContext } from "../db/DbContext.js"
 
 class BurgerService {
+  async update(id) {
+    const burger = await dbContext.Burger.findByIdAndUpdate(id)
+    burger.price = 1
+    return burger
+
+  }
   async deleteAll() {
     return await dbContext.Burger.deleteMany()
   }

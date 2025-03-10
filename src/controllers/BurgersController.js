@@ -10,10 +10,23 @@ export class BurgersController extends BaseController {
       .post('', this.buildBurger)
       .delete('/:burgerId', this.removeBurger) // what if there is no extra link supplied, will it delete all? // NOTE :burgerId creates the parameter
       .delete('', this.removeAllBurgers)
+      .put('/:burgerId', this.updateBurger)
     //...
     // console.log('test');
 
   }
+  async updateBurger(request, response, next) {
+    try {
+      const burgerID = request.params.burgerId
+      const updatedBurger = await burgerService.update(burgerID)
+      response.send(updatedBurger)
+
+    } catch (error) {
+      throw new Error(error);
+
+    }
+  }
+
   async removeAllBurgers(request, response, next) {
     try {
       const burgers = request.body
