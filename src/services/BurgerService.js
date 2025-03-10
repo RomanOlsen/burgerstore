@@ -1,6 +1,9 @@
 import { dbContext } from "../db/DbContext.js"
 
 class BurgerService {
+  async deleteAll() {
+    return await dbContext.Burger.deleteMany()
+  }
   async grabBurgers() {
     const burgers = await dbContext.Burger.find() // mongooses term to get everything
     return burgers

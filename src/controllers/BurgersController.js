@@ -9,9 +9,21 @@ export class BurgersController extends BaseController {
       .get('', this.grabBurgers)
       .post('', this.buildBurger)
       .delete('/:burgerId', this.removeBurger) // what if there is no extra link supplied, will it delete all? // NOTE :burgerId creates the parameter
+      .delete('', this.removeAllBurgers)
     //...
     // console.log('test');
 
+  }
+  async removeAllBurgers(request, response, next) {
+    try {
+      const burgers = request.body
+      const deletedBurgers = await burgerService.deleteAll()
+      response.send(deletedBurgers)
+
+    } catch (error) {
+      throw new Error("Dang it, we couldnt remove everything!");
+
+    }
   }
 
   testItOut(req, respo, next) {
@@ -53,4 +65,6 @@ export class BurgersController extends BaseController {
       throw new Error("No burger can be deleted with whatever you gave me");
     }
   }
+
+
 }
