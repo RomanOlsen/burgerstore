@@ -7,6 +7,7 @@ export class BurgersController extends BaseController {
     this.router
       // .get('', this.testItOut)
       .get('', this.grabBurgers)
+      .post('', this.buildBurger)
     //...
     // console.log('test');
 
@@ -24,6 +25,18 @@ export class BurgersController extends BaseController {
       response.send(burgers)
     } catch (error) {
       console.log('Oh no!', error);
+
+    }
+  }
+
+  async buildBurger(request, response, next) {
+    try {
+      const burgerData = request.body
+      const burger = await burgerService.buildBurger(burgerData)
+    } catch (error) {
+      console.log('cannot make burger', error);
+      throw new Error("No burger can be made with whatever you gave me");
+
 
     }
   }
