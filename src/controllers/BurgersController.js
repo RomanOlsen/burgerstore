@@ -8,6 +8,7 @@ export class BurgersController extends BaseController {
       // .get('', this.testItOut)
       .get('', this.grabBurgers)
       .post('', this.buildBurger)
+      .delete('/:burgerId', this.removeBurger) // what if there is no extra link supplied, will it delete all? // NOTE :burgerId creates the parameter
     //...
     // console.log('test');
 
@@ -43,4 +44,13 @@ export class BurgersController extends BaseController {
     }
   }
 
+  async removeBurger(request, response, remove) {
+    try {
+      const burgerToDeleteID = request.params.burgerId
+      const burger = burgerService.removeBurger(burgerToDeleteID)
+      response.send(burger) // no roman, you cant add a fun message here
+    } catch (error) {
+      throw new Error("No burger can be deleted with whatever you gave me");
+    }
+  }
 }

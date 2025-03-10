@@ -10,6 +10,10 @@ class BurgerService {
     const freshBurger = await dbContext.Burger.create(burgerData)
     return freshBurger
   }
+  async removeBurger(burgerToDeleteID) {
+    const burgerToRemove = await dbContext.Burger.findById(burgerToDeleteID).deleteOne()
+    return burgerToRemove
+  }
 }
 
 export const burgerService = new BurgerService()
