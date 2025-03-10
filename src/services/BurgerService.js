@@ -1,9 +1,10 @@
 import { dbContext } from "../db/DbContext.js"
 
 class BurgerService {
-  async update(id) {
+  async update(id, newPrice) {
     const burger = await dbContext.Burger.findByIdAndUpdate(id)
-    burger.price = 1
+    burger.price = newPrice
+    await burger.save()
     return burger
 
   }

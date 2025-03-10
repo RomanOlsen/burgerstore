@@ -18,7 +18,8 @@ export class BurgersController extends BaseController {
   async updateBurger(request, response, next) {
     try {
       const burgerID = request.params.burgerId
-      const updatedBurger = await burgerService.update(burgerID)
+      const newPrice = request.body.price
+      const updatedBurger = await burgerService.update(burgerID, newPrice)
       response.send(updatedBurger)
 
     } catch (error) {
